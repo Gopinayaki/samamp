@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" >
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+    <ion-title>
+      Menu
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item lines="full">
+      <ion-icon slot="start" name="moon"></ion-icon>
+      <ion-label>
+        Dark Theme
+      </ion-label>
+      <ion-toggle id="themeToggle" slot="end" (ionChange)="changeTheme()"></ion-toggle>
+    </ion-item>
+  </ion-list>
+ 
+  <!-- <div class="ion-margin-bottom">
+    <ion-list-header color="medium">
+      <ion-label>Select Theme</ion-label>
+    </ion-list-header>
+
+    <ion-select color="dark" class="selectTheme"
+      [(ngModel)]="selectTheme" (ionChange)="dynamicTheme()">
+      <ion-select-option color="light" [value]="theme.class" *ngFor="let theme of themeColor;let i = indexs">
+        {{theme.name}}
+      </ion-select-option>
+    </ion-select>
+  </div> -->
+
+  <ion-list>
+    <ion-item (click)="navigateUrl()">
+      <ion-icon name="key-outline" slot="start"></ion-icon>
+      <ion-label>Change Password</ion-label>
+    </ion-item>
+    <ion-item (click)="navToSettings()">
+      <ion-icon name="settings-outline" slot="start"></ion-icon>
+      <ion-label>Settings</ion-label>
+    </ion-item>
+    <ion-item (click)="logout()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      <ion-label>Logout</ion-label>
+    </ion-item>
+  </ion-list>
+
+  </ion-content>
+  

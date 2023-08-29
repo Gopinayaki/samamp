@@ -1,0 +1,9 @@
+#settingurl {
+    padding: 20px;
+    .btn {
+        text-align: center;
+    }
+    .save-btn {
+        --ion-color-base: var(--ion-text-color) !important;
+    }
+}

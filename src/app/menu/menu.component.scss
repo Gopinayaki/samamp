@@ -1,0 +1,23 @@
+
+
+.menu-sec {
+    ion-card {
+        padding: 8px;
+        background-color: #E0E0E0;
+        color: var(--ion-text-color);
+        height: 150px;
+        border-radius: 16px;
+    }
+    h5 {
+        text-align: center;
+        margin-top: 0px;
+    }
+    p {
+        text-align: center;
+    }
+    .icon {
+        height: 40px;
+        width: 100%;
+        margin: auto;
+    }
+}

@@ -1,0 +1,139 @@
+#viewcontrol {
+    height: calc(100% - 56px);
+    font-size: 12px;
+    .table-tlt {
+        text-align: center;
+        font-size: 20px;
+        text-transform: capitalize;
+        font-weight: 600;
+        color: var(--ion-text-color);
+    }  
+    ion-card-title {
+      text-align: center;
+      font-size: 15px;
+    } 
+    .item {
+        padding-bottom: 30px;
+        margin-top: 20px;
+        border-bottom: 1px solid #80808063;
+        .btn-icos {
+            margin-top: 12px;
+            text-align: center;
+            ion-icon  {
+                font-size: 23px;
+                color: #fff;
+            }
+        }
+    }
+    .table-col {
+        text-align: left;
+        align-items: center;
+        display: flex;
+        height: 100%;
+        .light-indicator {
+            width: 14px;
+            height: 14px;
+            background-color: black;
+            display: inline-block;
+            margin-right: 10px;
+            border-radius: 50%;
+        }    
+    }
+    .condition {
+        padding: 3px 10px;
+        border-radius: 15px;
+    }
+    .nodata_wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        .nodata_img {
+            width: 124px;
+        }
+        span {
+            margin-top: 16px;
+            color: #76777bf7;
+            font-weight: bold;
+        }
+    }
+    .grid-table {
+        .mdc-data-table__cell {
+            border-bottom: none;
+        }
+        .mdc-data-table__header-cell {
+            border-bottom: none;
+        }
+    }
+    .dx-datagrid .dx-column-lines>td {
+        border-right: 1px solid transparent;
+      }
+      .dx-field-value-static, .dx-field-value:not(.dx-switch):not(.dx-checkbox):not(.dx-button) {
+        width: 100%;
+    }
+      .dx-datagrid-header-panel {
+        border: 1px solid transparent;
+      }
+      .dx-datagrid-headers+.dx-datagrid-rowsview {
+        border-top: 1px solid transparent;
+      }
+      .dx-datagrid-headers {
+        color: #6f6a6a;
+        font-weight: 600;
+        font-size: 15px;
+        border-bottom: 1px solid transparent;
+      }
+      .dx-datagrid-headers .dx-datagrid-table .dx-row>td {
+        border-bottom: 1px solid transparent;
+      }
+      .ngx-gauge-meter {
+        display: flex;
+        justify-content: center;
+        width: 100% !important;
+      }
+}
+
+.light-indicator-wrapper {
+    display: flex;
+    align-items: center;
+    .light-indicator {
+        width: 14px;
+        height: 14px;
+        background-color: black;
+        display: inline-block;
+        margin-right: 10px;
+        border-radius: 50%;
+    }
+}
+
+ion-back-button {
+    display: block !important;
+}
+
+ion-modal#indicatoMmodal {
+    --width: fit-content;
+    --min-width: 250px;
+    --height: fit-content;
+    --border-radius: 6px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  }
+  
+  ion-modal#indicatoMmodal h1 {
+    margin: 20px 20px 10px 20px;
+  }
+  
+  ion-modal#indicatoMmodaldal ion-icon {
+    margin-right: 6px;
+  
+    width: 48px;
+    height: 48px;
+  
+    padding: 4px 0;
+  
+    color: #aaaaaa;
+  }
+  
+  ion-modal#indicatoMmodal .wrapper {
+    margin-bottom: 10px;
+  }

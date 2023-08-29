@@ -1,0 +1,169 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>testchart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">testchart</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="chart-demo">
+    <dx-chart
+      palette="violet"
+      [dataSource]="architecturesInfo"
+      title="Architecture Share Over Time (Count)"
+    >
+      <dxi-series valueField="temp" name="temp">
+        <dxo-aggregation [enabled]="true"></dxo-aggregation>
+        <dxo-point [visible]="false"></dxo-point>
+      </dxi-series>
+
+      <!-- <dxi-series valueField="cluster" name="Cluster"></dxi-series> -->
+      <dxo-common-series-settings argumentField="date">
+      </dxo-common-series-settings>
+      <dxo-zoom-and-pan argumentAxis="both">
+      </dxo-zoom-and-pan>
+      <dxo-margin [bottom]="20"></dxo-margin>
+      <dxo-common-axis-settings>
+        <dxo-grid [visible]="false"></dxo-grid>
+      </dxo-common-axis-settings>
+      <dxo-legend verticalAlignment="top" horizontalAlignment="right">
+      </dxo-legend>
+      <dxo-argument-axis #argumentAxisSettings
+      argumentType="datetime"
+      [aggregationInterval]="aggregationInterval"
+      >
+      </dxo-argument-axis>
+      <dxo-export [enabled]="false"></dxo-export>
+      <dxo-tooltip [enabled]="true"></dxo-tooltip>
+    </dx-chart>
+    <!-- <div class="options">
+      <div class="caption">Options</div>
+      <div class="option">
+        <span>Interval:</span>
+        <dx-select-box
+          [dataSource]="intervals"
+          displayExpr="displayName"
+          valueExpr="interval"
+          [inputAttr]="{ 'aria-label': 'Interval' }"
+          [(value)]="argumentAxisSettings.aggregationInterval"
+        >
+        </dx-select-box>
+      </div>
+    </div> -->
+    <div class="option" style="display: flex; justify-content: center;">
+      <ion-button (click)="setInterval('day')">1 D</ion-button>
+      <ion-button (click)="setInterval('week')">1 W</ion-button>
+      <ion-button (click)="setInterval('month')">1 M</ion-button>
+      <ion-button (click)="setInterval('year')">1 Y</ion-button>
+      <ion-button (click)="realTimeFn()">R</ion-button>
+      <ion-button (click)="historicalFn()">H</ion-button>
+    </div>
+    <ng-container *ngIf="showHistInputs == true">
+      <ion-grid class="no-padding">
+        <ion-row class="no-padding"  style="margin-bottom: 15px;">
+          <ion-col size="6" class="no-padding">
+            <div class="dx-field">
+              <div class="dx-field-value">
+                <dx-date-box
+                  pickerType="rollers"
+                  [inputAttr]="{ 'aria-label': 'Date Picker' }"
+                  dateSerializationFormat="yyyy-MM-ddTHH:mm:ss" [displayFormat]="'dd/MM/yyyy HH:mm'" [(ngModel)]="fromDate"
+                >
+                </dx-date-box>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col size="6" class="no-padding">
+            <div class="dx-field">
+              <div class="dx-field-value">
+                <dx-date-box
+                  type="time"
+                  pickerType="rollers"
+                  [inputAttr]="{ 'aria-label': 'Time' }"
+                  dateSerializationFormat="yyyy-MM-ddTHH:mm:ss" [displayFormat]="'dd/MM/yyyy HH:mm'" [(ngModel)]="fromTime"
+                >
+                </dx-date-box>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="no-padding" style="margin-bottom: 15px;">
+          <ion-col size="6" class="no-padding">
+            <div class="dx-field">
+              <div class="dx-field-value">
+                <dx-date-box
+                  pickerType="rollers"
+                  [inputAttr]="{ 'aria-label': 'Date Picker' }"
+                  dateSerializationFormat="yyyy-MM-ddTHH:mm:ss" [displayFormat]="'dd/MM/yyyy HH:mm'" [(ngModel)]="toDate"
+                >
+                </dx-date-box>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col size="6" class="no-padding">
+            <div class="dx-field">
+              <div class="dx-field-value">
+                <dx-date-box
+                  type="time"
+                  pickerType="rollers"
+                  [inputAttr]="{ 'aria-label': 'Time' }"
+                  dateSerializationFormat="yyyy-MM-ddTHH:mm:ss" [displayFormat]="'dd/MM/yyyy HH:mm'" [(ngModel)]="toTime"
+                >
+                </dx-date-box>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>    
+      <div class="btn"> 
+        <ion-button expand="block" color="primary" class="login-btn" (click)="showHistChart()">Show Historical Chart</ion-button>
+      </div>        
+    </ng-container>
+  </div>
+
+  <div id="chart-demo">
+    <!-- <ng-container *ngFor="let data of dataSource">
+      <h5>{{data.Value}}</h5>
+    </ng-container> -->
+    <dx-chart id="chart" [dataSource]="dataSource">
+      <dxi-series valueField="Value"
+        type="spline" [name]="dataSource[0]['Name']">
+        <dxo-aggregation [enabled]="true"></dxo-aggregation>
+        <dxo-point [visible]="false"></dxo-point>
+      </dxi-series>
+
+      <dxo-zoom-and-pan argumentAxis="both" valueAxis="both">
+      </dxo-zoom-and-pan>
+      <dxo-legend verticalAlignment="top" horizontalAlignment="center">
+      </dxo-legend>
+      <dxo-title text="Title">
+        <dxo-font [size]="25" [weight]="500"></dxo-font>
+      </dxo-title>
+      <dxo-tooltip [enabled]="false" [shared]="false">
+      </dxo-tooltip>
+      
+      <dxo-argument-axis [allowDecimals]="true" [axisDivisionFactor]="60"  #argumentAxisSettings
+      >
+        <dxo-grid [visible]="false"></dxo-grid>
+      </dxo-argument-axis>
+      <dxo-common-series-settings #seriesSettings argumentField="TimeStamp">
+        <dxo-grid [visible]="false"></dxo-grid>
+      </dxo-common-series-settings>
+     <dxo-crosshair [enabled]="true">
+        <dxo-label [visible]="true"></dxo-label>
+      </dxo-crosshair> 
+      <dxo-animation easing="linear" [duration]="500" [maxPointCountSupported]="100"> </dxo-animation>
+    </dx-chart>
+    <!-- <div class="option" style="display: flex; justify-content: center;">
+      <ion-button (click)="setInterval('day')">Day</ion-button>
+      <ion-button (click)="setInterval('week')">Week</ion-button>
+      <ion-button (click)="setInterval('month')">Month</ion-button>
+      <ion-button (click)="setInterval('year')">Year</ion-button>
+    </div> -->
+</div>
+</ion-content>

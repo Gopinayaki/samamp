@@ -1,0 +1,7 @@
+{
+  "name": "samaexplorer",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

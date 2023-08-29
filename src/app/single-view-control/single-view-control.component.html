@@ -1,0 +1,169 @@
+<div id="single-view-control">
+  <!-- <ion-header translucent>
+    <ion-toolbar>
+      <ng-container *ngIf="data.cat == 'page'">
+        <ion-title>{{data.data.title}}</ion-title>
+      </ng-container>
+      <ng-container *ngIf="data.cat == 'query'">
+        <ion-title>{{data.title}}</ion-title>
+      </ng-container>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismissModal()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header> -->
+  <ion-content fullscreen class="ion-padding">
+    <!-- <ion-icon name="arrow-back-outline" class="back-icon" (click)="dismissModal()"></ion-icon> -->
+    <div class="item">
+      <ng-container *ngIf="data.cat == 'page'">
+        <ng-container *ngIf="data.type == 'grid'">
+          <h1 class="table-tlt">{{data.data.title}}</h1>
+          <dx-data-grid id="gridContainer" [dataSource]="data.dataSource" [columns]="data.data.displayfields"
+          [showBorders]="true" [columnAutoWidth]="true">
+            <dxo-group-panel [visible]="false"></dxo-group-panel>
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <!-- <ng-container *ngIf="role == 'A' || role == 'P'">
+                      <dxo-export [enabled]="true"></dxo-export>
+                    </ng-container> -->
+            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+            <dxo-load-panel [enabled]="false"></dxo-load-panel>
+          </dx-data-grid>
+          <div class="btn-icos">
+            <ion-button (click)="dismissModal()">
+              <ion-icon name="arrow-undo-outline"></ion-icon>              
+            </ion-button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="data.type == 'chart'">
+          <dx-chart id="chart" [dataSource]="data.dataSource" [title]="data.data?data.data.title:'Title'">
+            <dxi-series *ngFor="let tags of data['data']['tags']" argumentField="datetime" [valueField]="tags"
+            [type]="data.data.chartType" [name]="tags">
+              <dxo-aggregation [enabled]="true"></dxo-aggregation>
+              <dxo-point [visible]="data['data']['pointFlag']"></dxo-point>
+            </dxi-series>
+            <!-- <dxo-title [text]="data.data?data.data.title:'Title'">
+              <dxo-font [size]="25" [weight]="500"></dxo-font>
+            </dxo-title> -->
+            <dxo-zoom-and-pan argumentAxis="both" valueAxis="both" *ngIf="data.zoom">
+              <!-- or "zoom" | "pan" | "none" -->
+            </dxo-zoom-and-pan>
+            <dxo-legend verticalAlignment="top" horizontalAlignment="center">
+            </dxo-legend>
+            <dxo-tooltip [enabled]="true" [shared]="true">
+            </dxo-tooltip>
+            <dxi-value-axis name="value" position="left">
+              <!-- <dxo-grid [visible]="true"></dxo-grid> -->
+              <dxo-title [text]="data.data?data.data.valueAxis:'Value'"></dxo-title>
+              <dxo-grid [visible]="data['data']['gridFlag']"></dxo-grid>
+            </dxi-value-axis>
+            <!-- <dxo-argument-axis [title]="data.data?data.data.arugumentAxis:'Argument'" [valueMarginsEnabled]="false" argumentType="datetime"> -->
+            <dxo-argument-axis [title]="data.data?data.data.arugumentAxis:'Argument'" [valueMarginsEnabled]="false">
+              <dxo-label format="shortTime"></dxo-label>
+              <dxo-grid [visible]="data['data']['gridFlag']"></dxo-grid>
+            </dxo-argument-axis>
+            <dxo-common-series-settings argumentField="Time">
+              <dxo-grid [visible]="data['data']['gridFlag']"></dxo-grid>
+            </dxo-common-series-settings>
+            <dxo-crosshair [enabled]="true">
+              <dxo-label [visible]="true"></dxo-label>
+            </dxo-crosshair>  
+            <!-- <dxo-export [enabled]="true"></dxo-export> -->
+            <dxo-animation easing="linear" [duration]="500" [maxPointCountSupported]="100"> </dxo-animation>
+          </dx-chart>
+          <div class="btn-icos">
+            <ng-container *ngIf="data.data.processFor != 'query'">
+              <!-- <ion-button size="small"  (click)="pause(data)" [disabled]="data.zoom">Pause
+                  </ion-button>
+                  <ion-button size="small"  (click)="play(data)" [disabled]="!data.zoom">Play
+                  </ion-button> -->
+              <ion-button [disabled]="!data.zoom" (click)="play(data)">
+                <ion-icon name="play-outline"></ion-icon>
+              </ion-button>
+              <ion-button [disabled]="data.zoom" (click)="pause(data)">
+                <ion-icon name="pause-outline"></ion-icon>
+              </ion-button>
+            </ng-container>
+            <ion-button (click)="dismissModal()">
+              <ion-icon name="arrow-undo-outline"></ion-icon>              
+            </ion-button>
+            <!-- <ion-button (click)="openModalControl(data)">
+                    <ion-icon name="scan-outline"></ion-icon>
+                </ion-button> -->
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="data.cat == 'query'">
+        <ng-container *ngIf="data.type == 'grid'">
+          <h1 class="table-tlt">{{data.title}}</h1>
+          <dx-data-grid id="gridContainer" [dataSource]="data.tableDataSource" [columns]="data.displayfields"
+            [showBorders]="true" [columnAutoWidth]="true">
+            <dxo-group-panel [visible]="false"></dxo-group-panel>
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <!-- <ng-container *ngIf="role == 'A' || role == 'P'">
+                      <dxo-export [enabled]="true"></dxo-export>
+                    </ng-container> -->
+            <dxo-scrolling columnRenderingMode="virtual"></dxo-scrolling>
+            <dxo-load-panel [enabled]="false"></dxo-load-panel>
+          </dx-data-grid>
+          <ion-button (click)="dismissModal()">
+            <ion-icon name="arrow-undo-outline"></ion-icon>              
+          </ion-button>
+        </ng-container>
+        <ng-container *ngIf="data.type == 'chart'">
+          <dx-chart id="chart" [dataSource]="data.chartDataSource" [title]="data?data.title:'Title'">
+            <dxi-series *ngFor="let tags of data['tags']" argumentField="datetime" [valueField]="tags" [type]="data.chartType"
+              [name]="tags">
+              <dxo-aggregation [enabled]="true"></dxo-aggregation>
+              <dxo-point [visible]="data['pointFlag']"></dxo-point>
+            </dxi-series>
+            <dxo-zoom-and-pan argumentAxis="both" valueAxis="both" *ngIf="data.zoom">
+              <!-- or "zoom" | "pan" | "none" -->
+            </dxo-zoom-and-pan>
+            <dxo-legend verticalAlignment="top" horizontalAlignment="center">
+            </dxo-legend>
+            <dxo-title [text]="data?data.title:'Title'">
+              <dxo-font [size]="25" [weight]="500"></dxo-font>
+            </dxo-title>
+            <dxo-tooltip [enabled]="true" [shared]="true">
+            </dxo-tooltip>
+            <dxi-value-axis name="value" position="left">
+              <dxo-grid [visible]="data.gridFlag"></dxo-grid>
+              <dxo-title [text]="data?data.valueAxis:'Value'"></dxo-title>
+            </dxi-value-axis>
+            <dxo-argument-axis [title]="data?data.arugumentAxis:'Argument'" [valueMarginsEnabled]="false">
+              <dxo-grid [visible]="data.gridFlag"></dxo-grid>
+                <dxo-label format="shortTime"></dxo-label>
+            </dxo-argument-axis>
+            <dxo-common-series-settings argumentField="Time">
+              </dxo-common-series-settings>
+              <dxo-crosshair [enabled]="true">
+                <dxo-label [visible]="true"></dxo-label>
+              </dxo-crosshair>       
+            <!-- <dxo-export [enabled]="true"></dxo-export> -->
+            <dxo-animation easing="linear" [duration]="500" [maxPointCountSupported]="100"> </dxo-animation>
+          </dx-chart>
+          <div class="btn-icos">
+            <ng-container *ngIf="data.processFor != 'query'">
+              <!-- <ion-button size="small"  (click)="pause(data)" [disabled]="data.zoom">Pause
+                  </ion-button>
+                  <ion-button size="small"  (click)="play(data)" [disabled]="!data.zoom">Play
+                  </ion-button> -->
+              <ion-button [disabled]="!data.zoom" (click)="play(data)">
+                <ion-icon name="play-outline"></ion-icon>
+              </ion-button>
+              <ion-button [disabled]="data.zoom" (click)="pause(data)">
+                <ion-icon name="pause-outline"></ion-icon>
+              </ion-button>
+            </ng-container>
+            <ion-button (click)="dismissModal()">
+              <ion-icon name="arrow-undo-outline"></ion-icon>              
+            </ion-button>
+            <!-- <ion-button (click)="openModalControl(data)">
+                    <ion-icon name="scan-outline"></ion-icon>
+                </ion-button> -->
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ion-content>
+</div>
